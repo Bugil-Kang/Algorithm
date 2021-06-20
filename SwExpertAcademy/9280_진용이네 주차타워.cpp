@@ -15,31 +15,31 @@ struct MinHeap {
 
 	void heapPush(int idx)
 	{
-		heap[heapSize] = idx; // heap ²ôÆ®¸Ó¸®¿¡ »ğÀÔ
+		heap[heapSize] = idx; // heap ë„íŠ¸ë¨¸ë¦¬ì— ì‚½ì…
 		int current = heapSize;
 
-		while (current > 0 /* ÇöÀç À§Ä¡°¡ Á¤Á¡ÀÌ ¾Æ´Ï°í(Á¤Á¡ - 0) = ºÎ¸ğ ³ëµå°¡ ÀÖ°í */ && heap[current] < heap[(current - 1) / 2] /* ºÎ¸ğ ³ëµå heap °ªÀÌ ÀÚ¼Õ ³ëµåº¸´Ù Å« °æ¿ì */) 
+		while (current > 0 /* í˜„ì¬ ìœ„ì¹˜ê°€ ì •ì ì´ ì•„ë‹ˆê³ (ì •ì  - 0) = ë¶€ëª¨ ë…¸ë“œê°€ ìˆê³  */ && heap[current] < heap[(current - 1) / 2] /* ë¶€ëª¨ ë…¸ë“œ heap ê°’ì´ ìì† ë…¸ë“œë³´ë‹¤ í° ê²½ìš° */) 
 		{
 			int temp = heap[(current - 1) / 2];
 			heap[(current - 1) / 2] = heap[current];
 			heap[current] = temp;
-			current = (current - 1) / 2; // ÃÖ¼Ò heap ÀÌ¹Ç·Î, ºÎ¸ğ ³ëµå < ÀÚ¼Õ ³ëµå°¡ µÇ¾î¾ß ÇÏ°í, ÇöÀç ³ëµåº¸´Ù ºÎ¸ğ ³ëµå°¡ ´õ Å« °ªÀÌ ÀÖÀ¸¹Ç·Î, À§Ä¡¸¦ ¹Ù²Ù°í, À§Ä¡¸¦ ÀúÀåÇÑ´Ù
+			current = (current - 1) / 2; // ìµœì†Œ heap ì´ë¯€ë¡œ, ë¶€ëª¨ ë…¸ë“œ < ìì† ë…¸ë“œê°€ ë˜ì–´ì•¼ í•˜ê³ , í˜„ì¬ ë…¸ë“œë³´ë‹¤ ë¶€ëª¨ ë…¸ë“œê°€ ë” í° ê°’ì´ ìˆìœ¼ë¯€ë¡œ, ìœ„ì¹˜ë¥¼ ë°”ê¾¸ê³ , ìœ„ì¹˜ë¥¼ ì €ì¥í•œë‹¤
 		}
-		heapSize = heapSize + 1; // ³¡³ª°í ³ª¸é ÃÖÁ¾ÀûÀ¸·Î heapSize¸¦ °»½ÅÇØÁØ´Ù(1°³ »ğÀÔµÇ¾úÀ¸¹Ç·Î)
+		heapSize = heapSize + 1; // ëë‚˜ê³  ë‚˜ë©´ ìµœì¢…ì ìœ¼ë¡œ heapSizeë¥¼ ê°±ì‹ í•´ì¤€ë‹¤(1ê°œ ì‚½ì…ë˜ì—ˆìœ¼ë¯€ë¡œ)
 	}
 
 	int heapPop()
 	{
-		int nReturn = heap[0]; // Æ¢¾î ³ª°¥ heap °ª ¹Ì¸® ÀúÀå
-		heapSize = heapSize - 1; // heapSize ¸¦ ¾÷µ¥ÀÌÆ® ÇÏ°í(1°³ Æ¢¾î³ª°¡¾ß ÇÏ¹Ç·Î)
-		heap[0] = heap[heapSize]; // Á¦ÀÏ ³¡°ªÀ» Á¤Á¡¿¡ ³Ö°í À§¿Í °°ÀÌ update ½ÃÀÛ
+		int nReturn = heap[0]; // íŠ€ì–´ ë‚˜ê°ˆ heap ê°’ ë¯¸ë¦¬ ì €ì¥
+		heapSize = heapSize - 1; // heapSize ë¥¼ ì—…ë°ì´íŠ¸ í•˜ê³ (1ê°œ íŠ€ì–´ë‚˜ê°€ì•¼ í•˜ë¯€ë¡œ)
+		heap[0] = heap[heapSize]; // ì œì¼ ëê°’ì„ ì •ì ì— ë„£ê³  ìœ„ì™€ ê°™ì´ update ì‹œì‘
 		int current = 0;
 
-		while (current * 2 + 1 < heapSize) // ÀÚ½ÄÀÌ ÀÖ´Ù¸é = ¿ŞÂÊ ÀÚ½ÄÀÌ ÀÖ´Ù¸é
+		while (current * 2 + 1 < heapSize) // ìì‹ì´ ìˆë‹¤ë©´ = ì™¼ìª½ ìì‹ì´ ìˆë‹¤ë©´
 		{
-			int child; // ÀÚ½Äµé Áß¿¡¼­ ´õ
-			if (current * 2 + 2 == heapSize) // ¿À¸¥ÂÊ ÀÚ½ÄÀÌ ¾ø´Ù¸é
-				child = current * 2 + 1; // ¿ŞÂÊ ÀÚ½ÄÀÌ ´õ °ªÀÌ ÀÛÀº ÀÚ½ÄÀÌ´Ù.
+			int child; // ìì‹ë“¤ ì¤‘ì—ì„œ ë”
+			if (current * 2 + 2 == heapSize) // ì˜¤ë¥¸ìª½ ìì‹ì´ ì—†ë‹¤ë©´
+				child = current * 2 + 1; // ì™¼ìª½ ìì‹ì´ ë” ê°’ì´ ì‘ì€ ìì‹ì´ë‹¤.
 			else
 				child = heap[current * 2 + 1] < heap[current * 2 + 2] ? current * 2 + 1 : current * 2 + 2;
 
@@ -79,8 +79,8 @@ void Init() {
 int Processing() {
 	for (int i = 0; i < 2 * M; i++) {
 		int current = process[i];
-		if (current > 0) { // µé¾î¿Â °Í
-			if (minheap.heapSize == 0) { // ÁÖÂ÷ °ø°£ ²Ë Ã¡À½
+		if (current > 0) { // ë“¤ì–´ì˜¨ ê²ƒ
+			if (minheap.heapSize == 0) { // ì£¼ì°¨ ê³µê°„ ê½‰ ì°¼ìŒ
 				wait[wp++] = current;
 			}
 			else {
@@ -88,7 +88,7 @@ int Processing() {
 				car[current].space = remain;
 			}
 		}
-		else { // ³ª°£ °Í
+		else { // ë‚˜ê°„ ê²ƒ
 			int outspace = car[-current].space;
 			minheap.heapPush(outspace);
 			if (wp > rp) {
@@ -121,7 +121,7 @@ int main() {
 		for (int i = 1; i <= N; i++) {
 			scanf("%d", &temp);
 			fare[i] = temp;
-			minheap.heapPush(i); // N¹øÈ£ ±îÁö ³²´Â ÁÖÂ÷°ø°£ ¹øÈ£¸¦ ÃÖ¼Ò Èü¿¡ »ğÀÔ
+			minheap.heapPush(i); // Në²ˆí˜¸ ê¹Œì§€ ë‚¨ëŠ” ì£¼ì°¨ê³µê°„ ë²ˆí˜¸ë¥¼ ìµœì†Œ í™ì— ì‚½ì…
 		}
 
 		for (int i = 1; i <= M; i++) {
